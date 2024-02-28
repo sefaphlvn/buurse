@@ -19,24 +19,24 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	FileService_UpdateBootstrap_FullMethodName = "/fileService.FileService/UpdateBootstrap"
-	FileService_DeleteBootstrap_FullMethodName = "/fileService.FileService/DeleteBootstrap"
-	FileService_UpdateService_FullMethodName   = "/fileService.FileService/UpdateService"
-	FileService_DeleteService_FullMethodName   = "/fileService.FileService/DeleteService"
-	FileService_UpdateSH_FullMethodName        = "/fileService.FileService/UpdateSH"
-	FileService_DeleteSH_FullMethodName        = "/fileService.FileService/DeleteSH"
+	FileService_SendBootstrap_FullMethodName   = "/fileService.FileService/SendBootstrap"
+	FileService_RemoveBootstrap_FullMethodName = "/fileService.FileService/RemoveBootstrap"
+	FileService_SendService_FullMethodName     = "/fileService.FileService/SendService"
+	FileService_RemoveService_FullMethodName   = "/fileService.FileService/RemoveService"
+	FileService_SendScript_FullMethodName      = "/fileService.FileService/SendScript"
+	FileService_RemoveScript_FullMethodName    = "/fileService.FileService/RemoveScript"
 )
 
 // FileServiceClient is the client API for FileService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FileServiceClient interface {
-	UpdateBootstrap(ctx context.Context, in *Bootstrap, opts ...grpc.CallOption) (*FileResponse, error)
-	DeleteBootstrap(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error)
-	UpdateService(ctx context.Context, in *Service, opts ...grpc.CallOption) (*FileResponse, error)
-	DeleteService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error)
-	UpdateSH(ctx context.Context, in *Script, opts ...grpc.CallOption) (*FileResponse, error)
-	DeleteSH(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error)
+	SendBootstrap(ctx context.Context, in *Bootstrap, opts ...grpc.CallOption) (*FileResponse, error)
+	RemoveBootstrap(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error)
+	SendService(ctx context.Context, in *Service, opts ...grpc.CallOption) (*FileResponse, error)
+	RemoveService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error)
+	SendScript(ctx context.Context, in *Script, opts ...grpc.CallOption) (*FileResponse, error)
+	RemoveScript(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error)
 }
 
 type fileServiceClient struct {
@@ -47,54 +47,54 @@ func NewFileServiceClient(cc grpc.ClientConnInterface) FileServiceClient {
 	return &fileServiceClient{cc}
 }
 
-func (c *fileServiceClient) UpdateBootstrap(ctx context.Context, in *Bootstrap, opts ...grpc.CallOption) (*FileResponse, error) {
+func (c *fileServiceClient) SendBootstrap(ctx context.Context, in *Bootstrap, opts ...grpc.CallOption) (*FileResponse, error) {
 	out := new(FileResponse)
-	err := c.cc.Invoke(ctx, FileService_UpdateBootstrap_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, FileService_SendBootstrap_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fileServiceClient) DeleteBootstrap(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error) {
+func (c *fileServiceClient) RemoveBootstrap(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error) {
 	out := new(FileResponse)
-	err := c.cc.Invoke(ctx, FileService_DeleteBootstrap_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, FileService_RemoveBootstrap_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fileServiceClient) UpdateService(ctx context.Context, in *Service, opts ...grpc.CallOption) (*FileResponse, error) {
+func (c *fileServiceClient) SendService(ctx context.Context, in *Service, opts ...grpc.CallOption) (*FileResponse, error) {
 	out := new(FileResponse)
-	err := c.cc.Invoke(ctx, FileService_UpdateService_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, FileService_SendService_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fileServiceClient) DeleteService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error) {
+func (c *fileServiceClient) RemoveService(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error) {
 	out := new(FileResponse)
-	err := c.cc.Invoke(ctx, FileService_DeleteService_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, FileService_RemoveService_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fileServiceClient) UpdateSH(ctx context.Context, in *Script, opts ...grpc.CallOption) (*FileResponse, error) {
+func (c *fileServiceClient) SendScript(ctx context.Context, in *Script, opts ...grpc.CallOption) (*FileResponse, error) {
 	out := new(FileResponse)
-	err := c.cc.Invoke(ctx, FileService_UpdateSH_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, FileService_SendScript_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fileServiceClient) DeleteSH(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error) {
+func (c *fileServiceClient) RemoveScript(ctx context.Context, in *ServiceInfo, opts ...grpc.CallOption) (*FileResponse, error) {
 	out := new(FileResponse)
-	err := c.cc.Invoke(ctx, FileService_DeleteSH_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, FileService_RemoveScript_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,12 +105,12 @@ func (c *fileServiceClient) DeleteSH(ctx context.Context, in *ServiceInfo, opts 
 // All implementations must embed UnimplementedFileServiceServer
 // for forward compatibility
 type FileServiceServer interface {
-	UpdateBootstrap(context.Context, *Bootstrap) (*FileResponse, error)
-	DeleteBootstrap(context.Context, *ServiceInfo) (*FileResponse, error)
-	UpdateService(context.Context, *Service) (*FileResponse, error)
-	DeleteService(context.Context, *ServiceInfo) (*FileResponse, error)
-	UpdateSH(context.Context, *Script) (*FileResponse, error)
-	DeleteSH(context.Context, *ServiceInfo) (*FileResponse, error)
+	SendBootstrap(context.Context, *Bootstrap) (*FileResponse, error)
+	RemoveBootstrap(context.Context, *ServiceInfo) (*FileResponse, error)
+	SendService(context.Context, *Service) (*FileResponse, error)
+	RemoveService(context.Context, *ServiceInfo) (*FileResponse, error)
+	SendScript(context.Context, *Script) (*FileResponse, error)
+	RemoveScript(context.Context, *ServiceInfo) (*FileResponse, error)
 	mustEmbedUnimplementedFileServiceServer()
 }
 
@@ -118,23 +118,23 @@ type FileServiceServer interface {
 type UnimplementedFileServiceServer struct {
 }
 
-func (UnimplementedFileServiceServer) UpdateBootstrap(context.Context, *Bootstrap) (*FileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateBootstrap not implemented")
+func (UnimplementedFileServiceServer) SendBootstrap(context.Context, *Bootstrap) (*FileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendBootstrap not implemented")
 }
-func (UnimplementedFileServiceServer) DeleteBootstrap(context.Context, *ServiceInfo) (*FileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteBootstrap not implemented")
+func (UnimplementedFileServiceServer) RemoveBootstrap(context.Context, *ServiceInfo) (*FileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveBootstrap not implemented")
 }
-func (UnimplementedFileServiceServer) UpdateService(context.Context, *Service) (*FileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateService not implemented")
+func (UnimplementedFileServiceServer) SendService(context.Context, *Service) (*FileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendService not implemented")
 }
-func (UnimplementedFileServiceServer) DeleteService(context.Context, *ServiceInfo) (*FileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteService not implemented")
+func (UnimplementedFileServiceServer) RemoveService(context.Context, *ServiceInfo) (*FileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveService not implemented")
 }
-func (UnimplementedFileServiceServer) UpdateSH(context.Context, *Script) (*FileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateSH not implemented")
+func (UnimplementedFileServiceServer) SendScript(context.Context, *Script) (*FileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendScript not implemented")
 }
-func (UnimplementedFileServiceServer) DeleteSH(context.Context, *ServiceInfo) (*FileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteSH not implemented")
+func (UnimplementedFileServiceServer) RemoveScript(context.Context, *ServiceInfo) (*FileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveScript not implemented")
 }
 func (UnimplementedFileServiceServer) mustEmbedUnimplementedFileServiceServer() {}
 
@@ -149,110 +149,110 @@ func RegisterFileServiceServer(s grpc.ServiceRegistrar, srv FileServiceServer) {
 	s.RegisterService(&FileService_ServiceDesc, srv)
 }
 
-func _FileService_UpdateBootstrap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileService_SendBootstrap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Bootstrap)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FileServiceServer).UpdateBootstrap(ctx, in)
+		return srv.(FileServiceServer).SendBootstrap(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: FileService_UpdateBootstrap_FullMethodName,
+		FullMethod: FileService_SendBootstrap_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FileServiceServer).UpdateBootstrap(ctx, req.(*Bootstrap))
+		return srv.(FileServiceServer).SendBootstrap(ctx, req.(*Bootstrap))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FileService_DeleteBootstrap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileService_RemoveBootstrap_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ServiceInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FileServiceServer).DeleteBootstrap(ctx, in)
+		return srv.(FileServiceServer).RemoveBootstrap(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: FileService_DeleteBootstrap_FullMethodName,
+		FullMethod: FileService_RemoveBootstrap_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FileServiceServer).DeleteBootstrap(ctx, req.(*ServiceInfo))
+		return srv.(FileServiceServer).RemoveBootstrap(ctx, req.(*ServiceInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FileService_UpdateService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileService_SendService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Service)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FileServiceServer).UpdateService(ctx, in)
+		return srv.(FileServiceServer).SendService(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: FileService_UpdateService_FullMethodName,
+		FullMethod: FileService_SendService_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FileServiceServer).UpdateService(ctx, req.(*Service))
+		return srv.(FileServiceServer).SendService(ctx, req.(*Service))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FileService_DeleteService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileService_RemoveService_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ServiceInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FileServiceServer).DeleteService(ctx, in)
+		return srv.(FileServiceServer).RemoveService(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: FileService_DeleteService_FullMethodName,
+		FullMethod: FileService_RemoveService_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FileServiceServer).DeleteService(ctx, req.(*ServiceInfo))
+		return srv.(FileServiceServer).RemoveService(ctx, req.(*ServiceInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FileService_UpdateSH_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileService_SendScript_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Script)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FileServiceServer).UpdateSH(ctx, in)
+		return srv.(FileServiceServer).SendScript(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: FileService_UpdateSH_FullMethodName,
+		FullMethod: FileService_SendScript_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FileServiceServer).UpdateSH(ctx, req.(*Script))
+		return srv.(FileServiceServer).SendScript(ctx, req.(*Script))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FileService_DeleteSH_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FileService_RemoveScript_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ServiceInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FileServiceServer).DeleteSH(ctx, in)
+		return srv.(FileServiceServer).RemoveScript(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: FileService_DeleteSH_FullMethodName,
+		FullMethod: FileService_RemoveScript_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FileServiceServer).DeleteSH(ctx, req.(*ServiceInfo))
+		return srv.(FileServiceServer).RemoveScript(ctx, req.(*ServiceInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -265,28 +265,28 @@ var FileService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*FileServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "UpdateBootstrap",
-			Handler:    _FileService_UpdateBootstrap_Handler,
+			MethodName: "SendBootstrap",
+			Handler:    _FileService_SendBootstrap_Handler,
 		},
 		{
-			MethodName: "DeleteBootstrap",
-			Handler:    _FileService_DeleteBootstrap_Handler,
+			MethodName: "RemoveBootstrap",
+			Handler:    _FileService_RemoveBootstrap_Handler,
 		},
 		{
-			MethodName: "UpdateService",
-			Handler:    _FileService_UpdateService_Handler,
+			MethodName: "SendService",
+			Handler:    _FileService_SendService_Handler,
 		},
 		{
-			MethodName: "DeleteService",
-			Handler:    _FileService_DeleteService_Handler,
+			MethodName: "RemoveService",
+			Handler:    _FileService_RemoveService_Handler,
 		},
 		{
-			MethodName: "UpdateSH",
-			Handler:    _FileService_UpdateSH_Handler,
+			MethodName: "SendScript",
+			Handler:    _FileService_SendScript_Handler,
 		},
 		{
-			MethodName: "DeleteSH",
-			Handler:    _FileService_DeleteSH_Handler,
+			MethodName: "RemoveScript",
+			Handler:    _FileService_RemoveScript_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

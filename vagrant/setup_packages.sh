@@ -1,5 +1,6 @@
 #!/bin/bash
 
-apt install -y network-manager
+apt install network-manager -y
 apt install net-tools
 apt install git
+apt install frr -y

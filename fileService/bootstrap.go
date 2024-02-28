@@ -3,10 +3,10 @@ package fileService
 import (
 	"context"
 
-	pb "github.com/sefaphlvn/suubar/busproto"
+	fileService "github.com/sefaphlvn/suubar/busproto"
 )
 
-func (s *AgentServer) UpdateBootstrap(ctx context.Context, req *pb.Bootstrap) (*pb.FileResponse, error) {
+func (s *AgentServer) UpdateBootstrap(ctx context.Context, req *fileService.Bootstrap) (*fileService.FileResponse, error) {
 	// Bootstrap güncelleme işlemleri
-	return &pb.FileResponse{Message: "Bootstrap updated"}, nil
+	return &fileService.FileResponse{Message: "Bootstrap updated"}, nil
 }

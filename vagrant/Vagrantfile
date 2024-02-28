@@ -30,4 +30,5 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "customize_nf_contrack.sh"
   config.vm.provision "shell", path: "customize_nofile.sh"
   config.vm.provision "shell", path: "customize_sysctl.sh"
+  config.vm.provision "shell", path: "create_statics.sh"
 end

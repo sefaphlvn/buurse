@@ -7,14 +7,14 @@ import "google/protobuf/any.proto";
 option go_package = "./;busproto";
 
 service FileService {
-    rpc UpdateBootstrap (Bootstrap) returns (FileResponse) {}
-    rpc DeleteBootstrap (ServiceInfo) returns (FileResponse) {}
+    rpc SendBootstrap (Bootstrap) returns (FileResponse) {}
+    rpc RemoveBootstrap (ServiceInfo) returns (FileResponse) {}
 
-    rpc UpdateService (Service) returns (FileResponse) {}
-    rpc DeleteService (ServiceInfo) returns (FileResponse) {}
+    rpc SendService (Service) returns (FileResponse) {}
+    rpc RemoveService (ServiceInfo) returns (FileResponse) {}
 
-    rpc UpdateSH (Script) returns (FileResponse) {}
-    rpc DeleteSH (ServiceInfo) returns (FileResponse) {}
+    rpc SendScript (Script) returns (FileResponse) {}
+    rpc RemoveScript (ServiceInfo) returns (FileResponse) {}
 }
 
 message ServiceInfo {
