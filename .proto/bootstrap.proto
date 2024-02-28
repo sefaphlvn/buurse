@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package bootstrap;
+
+// Go paket yolu ve hangi klasöre kodun üretileceğini belirtin.
+option go_package = "./busproto;busproto";
+
+service BootstrapService {
+  rpc Bootstrap(BootstrapRequest) returns (BootstrapResponse) {}
+}
+
+message BootstrapRequest {
+  string domain = 1;
+}
+
+message BootstrapResponse {
+  string message = 1;
+}
