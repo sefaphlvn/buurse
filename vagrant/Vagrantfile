@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "perk/ubuntu-2204-arm64"
+  config.vm.provider "qemu" do |qe|
+    qe.memory = "1G"
+    qe.smp = 2
+  end
+
+  pub_key = File.read(File.expand_path("~/.ssh/id_rsa.pub")).strip
+
+  config.vm.provision "shell", path: "setup_updates.sh"
+  config.vm.provision "shell", path: "setup_user.sh", env: {"PUB_KEY" => pub_key}
+  config.vm.provision "shell", path: "setup_golang.sh"
+  config.vm.provision "shell", path: "setup_func-e.sh"
+  config.vm.provision "shell", path: "setup_packages.sh"
+
+end
