@@ -12,13 +12,20 @@ import (
 )
 
 func main() {
-	cmd := exec.Command("vtysh", "-c", "show ip route json")
+	cmd := exec.Command("/usr/bin/vtysh", "-c", "show ip bgp summary")
+
 	var out bytes.Buffer
-	cmd.Stdout = &out
+	var stderr bytes.Buffer
+	cmd.Stdout = &out    // Standart çıktıyı yakala
+	cmd.Stderr = &stderr // Hata çıktısını yakala
+
 	err := cmd.Run()
 	if err != nil {
-		fmt.Println("Hata:", err)
+		fmt.Println("Komut Hatası:", err)
+		fmt.Println("STDERR:", stderr.String()) // Hata çıktısını yazdır
+		return
 	}
+
 	fmt.Println("Çıktı:", out.String())
 
 	lis, err := net.Listen("tcp", ":50041")
