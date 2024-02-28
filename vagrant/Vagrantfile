@@ -3,17 +3,29 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "perk/ubuntu-2204-arm64"
+  config.ssh.forward_agent = true
+
   config.vm.provider "qemu" do |qe|
     qe.memory = "1G"
     qe.smp = 2
   end
 
+  config.vm.provision "file", source: "~/.ssh/github_rsa", destination: "~/.ssh/github_rsa"
+  config.vm.provision "file", source: "~/.ssh/github_rsa.pub", destination: "~/.ssh/github_rsa.pub"
+
   pub_key = File.read(File.expand_path("~/.ssh/id_rsa.pub")).strip
+
+  config.vm.provision "shell", inline: <<-SHELL
+    chmod 600 /home/vagrant/.ssh/github_rsa*
+    eval $(ssh-agent -s)
+    ssh-add /home/vagrant/.ssh/github_rsa
+  SHELL
 
   config.vm.provision "shell", path: "setup_updates.sh"
   config.vm.provision "shell", path: "setup_user.sh", env: {"PUB_KEY" => pub_key}
   config.vm.provision "shell", path: "setup_golang.sh"
   config.vm.provision "shell", path: "setup_func-e.sh"
   config.vm.provision "shell", path: "setup_packages.sh"
+  config.vm.provision "shell", path: "setup_buurse.sh"
 
 end
