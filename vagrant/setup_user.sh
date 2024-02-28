@@ -20,6 +20,6 @@ echo "$PUB_KEY" >> /home/$user_name/.ssh/authorized_keys
 
 # Dosya izinlerini ayarla
 chown -R $user_name:$user_name /home/$user_name/.ssh
-chown -R $user_name:$user_name /vagrant/buurse
+chown -R $user_name:$user_name /vagrant/suubar
 chmod 700 /home/$user_name/.ssh
 chmod 600 /home/$user_name/.ssh/authorized_keys

@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package fileService;
+
+import "google/protobuf/any.proto";
+
+option go_package = "./;busproto";
+
+service FileService {
+    rpc UpdateBootstrap (Bootstrap) returns (FileResponse) {}
+    rpc DeleteBootstrap (ServiceInfo) returns (FileResponse) {}
+
+    rpc UpdateService (Service) returns (FileResponse) {}
+    rpc DeleteService (ServiceInfo) returns (FileResponse) {}
+
+    rpc UpdateSH (Script) returns (FileResponse) {}
+    rpc DeleteSH (ServiceInfo) returns (FileResponse) {}
+}
+
+message ServiceInfo {
+    string serviceName = 1;
+}
+
+message Bootstrap {
+    string serviceName = 2;
+    google.protobuf.Any bootstrapFile = 3;
+}
+
+message Service {
+    string serviceName = 2;
+    string systemDFile = 3;
+}
+
+message Script {
+    string serviceName = 2;
+    string SHFile = 3;
+}
+
+message FileResponse {
+    string message = 1;
+}

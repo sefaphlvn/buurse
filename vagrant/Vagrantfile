@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", path: "setup_updates.sh"
   config.vm.provision "shell", path: "setup_packages.sh"
-  config.vm.provision "shell", path: "setup_buurse.sh"
+  config.vm.provision "shell", path: "setup_suubar.sh"
   config.vm.provision "shell", path: "setup_user.sh", env: {"PUB_KEY" => pub_key}
   config.vm.provision "shell", path: "setup_golang.sh"
   config.vm.provision "shell", path: "setup_func-e.sh"

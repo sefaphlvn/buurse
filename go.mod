@@ -1,4 +1,4 @@
-module github.com/sefaphlvn/buurse
+module github.com/sefaphlvn/suubar
 
 go 1.22.0
 

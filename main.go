@@ -1,30 +1,24 @@
 package main
 
 import (
-	"context"
 	"log"
-	"time"
+	"net"
 
-	pb "github.com/sefaphlvn/buurse/busproto/bootstrap_grpc.pb"
-
+	"github.com/sefaphlvn/suubar/fileService"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	// Sunucuyla bağlantı kur
-	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure(), grpc.WithBlock())
+	lis, err := net.Listen("tcp", ":50041")
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Fatalf("Port not listen: %v", err)
 	}
-	defer conn.Close()
-	c := pb.NewBootstrapServiceClient(conn)
+	grpcServer := grpc.NewServer()
 
-	// BootstrapRequest çağrısı yap
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-	r, err := c.Bootstrap(ctx, &pb.BootstrapRequest{Domain: "example.com"})
-	if err != nil {
-		log.Fatalf("could not bootstrap: %v", err)
+	// Servisleri gRPC sunucusuna kaydet
+	fileService.RegisterWithServer(grpcServer)
+
+	if err := grpcServer.Serve(lis); err != nil {
+		log.Fatalf("gRPC server not started: %v", err)
 	}
-	log.Printf("Bootstrap Response: %s", r.GetMessage())
 }
