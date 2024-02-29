@@ -63,8 +63,8 @@ type InterfaceStatus struct {
 }
 
 func main() {
-	a, _ := runner.RunCommandAndDecode[*InterfaceStatus]("show interface json", []string{})
-	fmt.Println(a)
+	a, _ := runner.RunCommandAndDecode[InterfaceStatus]("show interface json", []string{})
+	fmt.Println(a.Eth0)
 
 	lis, err := net.Listen("tcp", ":50041")
 	if err != nil {
