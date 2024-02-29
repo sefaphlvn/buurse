@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	cmd := exec.Command("/usr/bin/vtysh", "-c", "show ip bgp summary")
+	cmd := exec.Command("sudo /usr/bin/vtysh", "-c", "show ip bgp summary")
 
 	var out bytes.Buffer
 	var stderr bytes.Buffer
