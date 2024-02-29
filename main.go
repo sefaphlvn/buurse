@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net"
@@ -64,7 +65,7 @@ type InterfaceStatus struct {
 
 func main() {
 	a, _ := runner.RunCommandAndDecode[InterfaceStatus]("show interface json", []string{})
-	fmt.Println(a.Eth0)
+	PrettyPrinter(a)
 
 	lis, err := net.Listen("tcp", ":50041")
 	if err != nil {
@@ -78,4 +79,13 @@ func main() {
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("gRPC server not started: %v", err)
 	}
+}
+
+func PrettyPrinter(data interface{}) {
+	prettyJSON, err := json.MarshalIndent(data, "", "    ")
+	if err != nil {
+		log.Fatalf("JSON marshaling error: %v", err)
+	}
+
+	fmt.Println(string(prettyJSON))
 }
